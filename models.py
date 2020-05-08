@@ -2,7 +2,7 @@ from flask import Flask
 from sqlalchemy import Column, String, Integer, create_engine, Date, Float
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
-from config import database_path
+from config import database_uri
 
 
 #Database Setup
@@ -28,7 +28,7 @@ db = SQLAlchemy()
 
 def setup_db(app, database_path=database_path):
     '''binds a flask application and a SQLAlchemy service'''
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_uri
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)

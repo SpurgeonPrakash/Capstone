@@ -11,9 +11,9 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     #comment setup_db(app) when running tests
-    #setup_db(app)
+    setup_db(app)
     #to create the test records when running python3 manage.py db upgrade
-    #db_create_all()
+    db_create_all()
     CORS(app)
 
     ''' CORS. Allow '*' for origins   '''
