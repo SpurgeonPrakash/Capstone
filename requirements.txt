@@ -1,6 +1,6 @@
 Authlib==0.14.1
 python_jose==3.1.0
-alembic==0.9.3.dev0
+alembic==0.9.3
 SQLAlchemy==1.1.11
 Flask_Script==2.0.6
 Flask==1.1.1
