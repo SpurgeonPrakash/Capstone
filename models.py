@@ -124,9 +124,11 @@ insert into actors (name,gender,age) values('Hayma','Female',20);
 
 # Models
 #
-#movies_actors_association = db.Table('movies_actors', db.Model.metadata,
-#    db.Column('movie_id', db.Integer, db.ForeignKey('movies.id')),
-#    db.Column('actor_id', db.Integer, db.ForeignKey('actors.id')))
+movies_actors_association = db.Table('movies_actors', db.Model.metadata,
+    db.Column('movie_id', db.Integer, db.ForeignKey('movies.id')),
+    db.Column('actor_id', db.Integer, db.ForeignKey('actors.id'))
+
+         )
 
 
 
