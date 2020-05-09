@@ -33,6 +33,7 @@ def setup_db(app, database_path=database_uri):
     db.app = app
     db.init_app(app)
     db.create_all()
+    db_create_all()
 
 def db_create_all():
     '''drops the database tables and starts fresh new records '''
