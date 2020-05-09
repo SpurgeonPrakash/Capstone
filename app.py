@@ -76,6 +76,8 @@ def create_app(test_config=None):
         # if no actors
         abort(404, {'message': 'no actors found in database.'})
 
+    '''Delete /actors  endpoint '''
+
     @app.route('/actors/<int:id>', methods=['DELETE'])
     @requires_auth('delete:actor')
     def delete_actor(jwt,id):
@@ -90,6 +92,8 @@ def create_app(test_config=None):
             "delete": id
         }), 200
 
+    '''DELETE /movies  endpoint '''
+
     @app.route('/movies/<int:id>', methods=['DELETE'])
     @requires_auth('delete:movie')
     def delete_movie(jwt,id):
@@ -103,6 +107,8 @@ def create_app(test_config=None):
             "success": True,
             "delete": id
         }), 200
+
+    '''POST /actors  endpoint '''
 
     @app.route('/actors', methods=['POST'])
     @requires_auth('post:actor')
@@ -140,6 +146,9 @@ def create_app(test_config=None):
     '''curl -iX GET http://127.0.0.1:5000/movies  -H "Authorization: Bearer <token>"'''
 
 
+
+    '''POST /movies  endpoint '''
+
     @app.route('/movies', methods=['POST'])
     @requires_auth('post:movie')
     def create_movie(jwt):
@@ -169,6 +178,9 @@ def create_app(test_config=None):
             })
         except BaseException:
             abort(422 ,{'message': 'something went wrong with prossing request'})
+
+
+    '''PATCH /actors  endpoint '''
 
     @app.route('/actors/<int:id>', methods=['PATCH'])
     @requires_auth('patch:actor')
