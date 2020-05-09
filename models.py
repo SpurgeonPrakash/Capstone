@@ -2,17 +2,19 @@ from flask import Flask
 from sqlalchemy import Column, String, Integer, create_engine, Date, Float
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
-from config import database_uri
-from flask_migrate import Migrate
-
-
-
+import os
+'''
+put the path in ~/.bashrc file 
+export DATABASE_URI="postgresql://postgres:12@127.0.0.1:5432/castingcampany"||link you get from heroku
+for test => open new terminal window and run echo $DATABASE_url
+https://able.bio/rhett/how-to-set-and-get-environment-variables-in-python--274rgt5
+'''
+database_url = os.environ.get('DATABASE_URL')
 
 #Database Setup
 '''for testing locally use 
  database_path = 'postgresql://postgres:12@127.0.0.1:5432/castingcampany'
  '''
-#database_path = 'postgresql://postgres:12@127.0.0.1:5432/castingcampany'
 db = SQLAlchemy()
 
 #def create_app():
@@ -29,15 +31,14 @@ db = SQLAlchemy()
 
 
 
-def setup_db(app, database_path=database_uri):
+def setup_db(app, database_path=database_url):
     '''binds a flask application and a SQLAlchemy service'''
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_uri
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
     db.create_all()
     #db_create_all()
-    migrate = Migrate(app, db)
 
 def db_create_all():
     '''drops the database tables and starts fresh new records '''
