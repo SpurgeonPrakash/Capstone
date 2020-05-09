@@ -3,6 +3,9 @@ from sqlalchemy import Column, String, Integer, create_engine, Date, Float
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 from config import database_uri
+from flask_migrate import Migrate
+
+
 
 
 #Database Setup
@@ -34,6 +37,7 @@ def setup_db(app, database_path=database_uri):
     db.init_app(app)
     db.create_all()
     db_create_all()
+    migrate = Migrate(app, db)
 
 def db_create_all():
     '''drops the database tables and starts fresh new records '''
