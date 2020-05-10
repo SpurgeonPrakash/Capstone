@@ -24,12 +24,12 @@ db = SQLAlchemy()
     https://python-decompiler.com/article/2013-10/when-scattering-
     flask-models-runtimeerror-application-not-registered-on-db-w
 """
-def create_app():
+#def create_app():
 
-    app = Flask("app")
-    setup_db(app)
-    db_create_all()
-    return app
+#    app = Flask("app")
+#    setup_db(app)
+#    db_create_all()
+#    return app
 
 
 
