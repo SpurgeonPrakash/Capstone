@@ -11,13 +11,11 @@ export DATABASE_URI="postgresql://postgres:12@127.0.0.1:5432/castingcampany"||li
 for test => open new terminal window and run echo $DATABASE_url
 https://able.bio/rhett/how-to-set-and-get-environment-variables-in-python--274rgt5
 '''
-#database_url = os.environ.get('DATABASE_URL')
+database_url = os.environ.get('DATABASE_URL')
 
 #Database Setup
-'''for testing locally use 
- database_path = 'postgresql://postgres:12@127.0.0.1:5432/castingcampany'
- '''
-database_url = 'postgresql://postgres:12@127.0.0.1:5432/castingcampany'
+'''for testing locally use '''
+#database_url = 'postgresql://postgres:12@127.0.0.1:5432/castingcampany'
 
 db = SQLAlchemy()
 """
@@ -37,8 +35,8 @@ def create_app():
 
 def setup_db(app, database_path=database_url):
     '''binds a flask application and a SQLAlchemy service'''
-    #app.config["SQLALCHEMY_DATABASE_URI"] = database_url
-    app.config["SQLALCHEMY_DATABASE_URI"]="postgresql://postgres:12@127.0.0.1:5432/castingcampany"
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+    #app.config["SQLALCHEMY_DATABASE_URI"]="postgresql://postgres:12@127.0.0.1:5432/castingcampany"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
