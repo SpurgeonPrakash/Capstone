@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db,db_create_all ,Movie ,Actor,movies_actors_association
 from auth import AuthError, requires_auth
+import json
 
 ACTOR_PER_PAGE = 10
 

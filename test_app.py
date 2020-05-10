@@ -279,9 +279,3 @@ class capstonTestCase(unittest.TestCase):
     if __name__ == "__main__":
         unittest.main()
 
-
-
-
-"""The 405 Method Not Allowed error occurs when the web server is configured in a way that does not allow you
- to perform a specific action for a particular URL. It's an HTTP response status code that 
- indicates that the request method is known by the server but is not supported by the target resource."""

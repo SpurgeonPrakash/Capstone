@@ -2,6 +2,8 @@ from flask import Flask
 from sqlalchemy import Column, String, Integer, create_engine, Date, Float
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
+import json
+
 import os
 '''
 put the path in ~/.bashrc file 
@@ -9,36 +11,39 @@ export DATABASE_URI="postgresql://postgres:12@127.0.0.1:5432/castingcampany"||li
 for test => open new terminal window and run echo $DATABASE_url
 https://able.bio/rhett/how-to-set-and-get-environment-variables-in-python--274rgt5
 '''
-database_url = os.environ.get('DATABASE_URL')
+#database_url = os.environ.get('DATABASE_URL')
 
 #Database Setup
 '''for testing locally use 
  database_path = 'postgresql://postgres:12@127.0.0.1:5432/castingcampany'
  '''
-db = SQLAlchemy()
+database_url = 'postgresql://postgres:12@127.0.0.1:5432/castingcampany'
 
-#def create_app():
+db = SQLAlchemy()
 """
     def create_app():
     is for the shell
     https://python-decompiler.com/article/2013-10/when-scattering-
     flask-models-runtimeerror-application-not-registered-on-db-w
 """
-#    app = Flask("app")
-#    setup_db(app)
-#    db_create_all()
-#    return app
+def create_app():
+
+    app = Flask("app")
+    setup_db(app)
+    db_create_all()
+    return app
 
 
 
 def setup_db(app, database_path=database_url):
     '''binds a flask application and a SQLAlchemy service'''
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+    #app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+    app.config["SQLALCHEMY_DATABASE_URI"]="postgresql://postgres:12@127.0.0.1:5432/castingcampany"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
     db.create_all()
-    db_create_all()
+    #db_create_all()
 
 def db_create_all():
     '''drops the database tables and starts fresh new records '''
@@ -54,38 +59,13 @@ def db_init_records():
 
     ))
 
-    movie2 = (Movie(
-        title='Ymovie',
-        release_date=date.today()
-    ))
-    movie3 = (Movie(
-        title='Zmovie',
-        release_date=date.today()
-    ))
-    movie4 = (Movie(
-        title='Nmovie',
-        release_date=date.today()
-    ))
+
     actor1 = (Actor(
         name='act1',
         gender='male',
         age=40
     ))
-    actor2 = (Actor(
-        name='act2',
-        gender='female',
-        age=20
-    ))
-    actor3 = (Actor(
-        name='act3',
-        gender='male',
-        age=40
-    ))
-    actor4 = (Actor(
-        name='act4',
-        gender='male',
-        age=40
-    ))
+
 
     record1 = movies_actors_association.insert().values(
         movie_id = 1,
@@ -95,31 +75,55 @@ def db_init_records():
         movie_id = 2,
         actor_id=3
     )
-    record3 = movies_actors_association.insert().values(
-        movie_id = 2,
-        actor_id = 4
-    )
 
+
+    movie_json = json.loads("""{
+                   "all_movies":[{   
+                               "title" : "proposaaaal",
+                               "release_date": "2020-11-11"
+                           },
+                           {   
+                               "title" : "proposaaaaltwo",
+                               "release_date": "2020-11-11"
+                           }
+                   ]}
+                   """)
+
+    actor_json = json.loads("""{
+              "all_actors": [{
+                "name": "Books",
+                "age": 30,
+                "gender":"male"},
+                {
+                "name": "ffff",
+                "age": 76,
+                "gender":"male"
+                }]
+                }""")
+    for e in actor_json['all_actors']:
+        actor_input = Actor(name=str(e['name']),
+                            age=str(e['age']),
+                            gender=str(e['gender'])
+                            )
+    for e in movie_json['all_movies']:
+        movie_input = Movie(title=str(e['title']),
+                            release_date=str(e['release_date'])
+                            )
+
+    db.session.add(actor_input)
+    db.session.add(movie_input)
 
 
     actor1.insert()
-    actor2.insert()
-    actor3.insert()
-    actor4.insert()
-    movie2.insert()
-    movie3.insert()
-    movie4.insert()
     movie1.insert()
 
     db.session.execute(record1)
     db.session.execute(record2)
-    db.session.execute(record3)
     db.session.commit()
+
 """
 You can create insert.py file with extra test records
 insert into actors (name,gender,age) values('Hanna','Female',27);
-insert into actors (name,gender,age) values('Kakash','male',37);
-insert into actors (name,gender,age) values('Hayma','Female',20);
 """
 
 # Models

@@ -143,7 +143,7 @@ All API Endpoints are decorated with Auth0 permissions. To use the project local
 2. Click on Applications Tab
 3. Create Application
 4. Give it a name like `Music` and select "Regular Web Application"
-5. Go to Settings and find `domain`. Copy & paste it into config.py => auth0_config['AUTH0_DOMAIN'] (i.e. replace `"example-matthew.eu.auth0.com"`)
+5. Go to Settings and find `domain`. Copy & paste it into config.py => auth0_config['AUTH0_DOMAIN'] (i.e. replace `"example.eu.auth0.com"`)
 6. Click on API Tab 
 7. Create a new API:
    1. Name: `Music`
@@ -171,8 +171,7 @@ If you want to access the real, temporary API, bearer tokens for all 3 roles are
 They are 3 Roles with distinct permission sets:
 
 1. Casting Assistant:
-  - GET /actors (view:actors): Can see all actors
-  - GET /movies (view:movies): Can see all movies
+  - GET /actors (get:actorsAndmovies): Can see all actors and all movies
 2. Casting Director (everything from Casting Assistant plus)
   - POST /actors (create:actors): Can create new Actors
   - PATCH /actors (edit:actors): Can edit existing Actors
@@ -194,11 +193,12 @@ For example: (Bearer token for `Executive Director`)
 
 
 
-https://auth0.com/blog/sqlalchemy-orm-tutorial-for-python-developers/
+
 
 
 '''
 Those links helped alot to accomplish the model 
+https://auth0.com/blog/sqlalchemy-orm-tutorial-for-python-developers/
 
 http://www-inf.int-evry.fr/cours/BD/PRIVATE/BD_REL/TP_SQL/Movie/presentation.html
 
